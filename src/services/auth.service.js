@@ -20,7 +20,6 @@ export const register = async (data) => {
       ...data,
       password: hashedPassword,
     });
-    console.log(user);
 
     if (!user) {
       throw new CustomError("User registration failed", 500);

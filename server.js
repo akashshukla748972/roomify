@@ -2,6 +2,7 @@ import http from "http";
 import app from "./src/app.js";
 import { Server } from "socket.io";
 import { gv } from "./configs/global_variable.js";
+import { connectDB } from "./configs/db.js";
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -13,6 +14,14 @@ io.on("connection", (socket) => {
 });
 
 const PORT = gv.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+connectDB()
+  .then(() => {
+    server.listen(PORT, () => {
+      console.log(`server is running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error("database connection error:", error);
+    process.exit(1);
+  });

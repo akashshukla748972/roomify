@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken";
+import { gv } from "../../configs/global_variable.js";
 
 export const generateToken = (payload) => {
-  return jwt.sign(payload, process.env.JWT_SECRET, {
+  console.log(payload);
+  return jwt.sign(payload, gv.JWT_SECRET, {
     expiresIn: "7d",
   });
 };

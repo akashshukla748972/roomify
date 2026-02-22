@@ -1,9 +1,8 @@
 import express from "express";
+import authRouter from "./auth.routes.js";
 
 const indexRouters = express.Router();
 
-indexRouters.get("/", (req, res) => {
-  res.status(200).json({ message: "Welcome to Roomify API!", success: true });
-});
+indexRouters.use("/auth", authRouter);
 
 export default indexRouters;
